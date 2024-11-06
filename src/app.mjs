@@ -1,22 +1,26 @@
-import express from 'express'; //importamos el framework Express
-
-//Importamos los controladores
-import { obtenerSuperheroePorIdController, buscarSuperheroesPorAtributoController, obtenerSuperheroesMayoresDe30Controller, obtenerTodosSuperheroes } from './controllers/superheroesController.mjs';
+import express from 'express';
+import { connectDB } from './config/dbConfig.mjs';
+import superHeroRoutes from './routes/superHeroRoute.mjs';
 
 const app = express(); //Inicializamos una aplicacion de Express
-const PORT = 3005; //Definimos el puerto en el que escuchara el servidor
+const PORT = process.env.PORT || 3000; 
 
-//middleware para permitir el manejo de solicitudes con cuerpo en formato JSON
+//middleware para PARSEAR JSON
 
 app.use(express.json());
 
-//Rutas
-app.get('/superheroes', obtenerTodosSuperheroes);
-app.get('/superheroes/id/:id', obtenerSuperheroePorIdController);
-app.get('/superheroes/atributo/:atributo/:valor', buscarSuperheroesPorAtributoController);
-app.get('/superheroes/edad/mayorA30', obtenerSuperheroesMayoresDe30Controller);
+//Conexion a MongoDB
+connectDB(); //Conectamos a la base de datos de MongoDB
 
-//inicia el server
+//Configracion de Rutas
+app.get('/api', superHeroRoutes);
+
+//Manejo de errores para rutas no encontradas
+app.use((req, res, next) => {
+        res.status(404).send({mensaje:"Ruta no encontrada"});
+});
+
+//Iniciar el servidor
 app.listen(PORT, () => {
-        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`Servidor corriendo en puertp ${PORT}`);
 });
