@@ -1,3 +1,6 @@
+/*Es esta capa se definen los controladores, que determinan como se obtienen parametros 
+de las url y llama a la funciones que los van a utiliar. Tambien invoca la renderizacion de la capa View*/
+
 
 import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30 } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseViews.mjs';
@@ -30,7 +33,7 @@ export async function buscarSuperheroesPorAtributoController(req, res){
     }
 }
 
-export async function obtenerSuperheroesMayoresDe30Controller(req, res){
+export async function obtenerSuperheroeMayoresDe30Controller(req, res){
     const superheroes = obtenerSuperheroesMayoresDe30();
     res.send(renderizarListaSuperheroes(superheroes));
 }

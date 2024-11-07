@@ -17,7 +17,18 @@ class SuperHeroRepository extends IRepository {
     }
 
     async obtenerMayoresDe30(){
-        return await SuperHero.find({edad: {$gt:30}, planetaOrigen: 'Tierra', poderes:{$size: {$gte:2}}});
+        return await SuperHero.find({
+            edad: {$gt:30}, 
+            //planetaOrigen: 'Tierra', 
+            //poderes:{$size: 2}
+            or: [
+                { $and: [
+                    { poderes: { $exists: true, $type: "array" } }, // Verifica que "poderes" sea un arreglo
+                    { $expr: { $gte: [{ $size: "$poderes" }, 2] } } // Condición de tamaño mínimo
+                ]},
+                { poder: { $exists: true, $type: "string" } } // Verifica que "poder" exista como string
+            ]
+            });
     }
 }
 

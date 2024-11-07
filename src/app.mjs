@@ -13,7 +13,7 @@ app.use(express.json());
 connectDB(); //Conectamos a la base de datos de MongoDB
 
 //Configracion de Rutas
-app.get('/api', superHeroRoutes);
+app.use('/api', superHeroRoutes);
 
 //Manejo de errores para rutas no encontradas
 app.use((req, res, next) => {
@@ -22,5 +22,5 @@ app.use((req, res, next) => {
 
 //Iniciar el servidor
 app.listen(PORT, () => {
-        console.log(`Servidor corriendo en puertp ${PORT}`);
+        console.log(`Servidor corriendo en puerto ${PORT}`);
 });
