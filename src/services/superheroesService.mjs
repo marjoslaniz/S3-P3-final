@@ -1,6 +1,9 @@
 
 import superHeroRepository from '../repository/SuperHeroRepository.mjs'
 
+export async function obtenerSuperheroesMayoresDe30(){
+    return await superHeroRepository.obtenerMayoresDe30();
+}
 export async function obtenerSuperheroePorId(id){
     return await superHeroRepository.obtenerPorId(id);
 }
@@ -13,6 +16,9 @@ export async function buscarSuperheroesPorAtributo(atributo, valor){
     return await superHeroRepository.buscarPorAtributo(atributo, valor);
 }
 
-export async function obtenerSuperheroesMayoresDe30(){
-    return await superHeroRepository.obtenerMayoresDe30();
-}
+//agregada para probar ahora
+export async function obtenerSuperheroesMayoresDe30YconFiltros() {
+    const heroes = await superHeroRepository.obtenerTodos();
+    return heroes.filter(hero => hero.edad > 30); 
+  }
+
