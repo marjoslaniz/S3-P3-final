@@ -16,7 +16,7 @@ class SuperHeroRepository extends IRepository {
         return await SuperHero.find(query);
     }
 
-    async obtenerMayoresDe30(){
+    /*async obtenerMayoresDe30(){
         try {
           return await SuperHero.find({
             edad: { $gt: 30 }, // Filtra por edad
@@ -27,20 +27,20 @@ class SuperHeroRepository extends IRepository {
           console.error('Error al obtener superhéroes mayores de 30:', error);
           throw error;
         }
-    }
-    //Probamos con otro async
-    /*async obtenerMayoresDe30() {
-        try {
-          return await SuperHero.find({
-            edad: { $gt: 30 }, // Filtra por edad
-            planetaOrigen: 'Tierra', // También filtra por planeta de origen
-            $expr: { $gte: [{ $size: "$poderes" }, 2] } // Al menos 2 poderes
-          });
-        } catch (error) {
-          console.error('Error al obtener superhéroes mayores de 30:', error);
-          throw error;
-        }
-      }*/
+    }**/
+        async obtenerMayoresDe30(){
+          try {
+            return await SuperHero.find({
+              edad: { $gt: 30 }, // Filtra por edad
+              planetaOrigen: 'Tierra', // También filtra por planeta de origen
+              poderes: { $size: 2} //{$gte: 2} } // esto da = a 2 Poderes. 
+            });
+          } catch (error) {
+            console.error('Error al obtener superhéroes mayores de 30:', error);
+            throw error;
+          }
+      }
+
 }
     
 

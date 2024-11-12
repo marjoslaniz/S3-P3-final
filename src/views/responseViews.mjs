@@ -1,16 +1,10 @@
-/*export function renderizarSuperheroe(superheroe){
-    return JSON.stringify(superheroe, null, 2);
-}
 
-export function renderizarListaSuperheroes(superheroes){
-    return JSON.stringify(superheroes, null, 2);
-}*/
-
-export function renderizarSuperHeroe(superheroe) {
+export function renderizarSuperheroe(superheroe) {
     return {
         Nombre: superheroe.nombreSuperHeroe,
         "Nombre Real": superheroe.nombreReal, 
         Edad: superheroe.edad, 
+        "Paneta de Origen": superheroe.planetaOrigen,
         Debilidad: superheroe.debilidad, 
         Poderes: superheroe.poderes, 
         Aliados: superheroe.aliados, 
@@ -19,5 +13,5 @@ export function renderizarSuperHeroe(superheroe) {
 }
 
 export function renderizarListaSuperHeroes(superheroes){
-    return superheroes.map(superheroe => renderizarSuperHeroe(superheroe));
+    return superheroes.map(superheroe => renderizarSuperheroe(superheroe));
 }

@@ -1,7 +1,7 @@
 
 import superHeroRepository from '../repository/SuperHeroRepository.mjs'
 
-export async function obtenerSuperheroesMayoresDe30(){
+export async function obtenerSuperheroesMayoresDe30(param){
     return await superHeroRepository.obtenerMayoresDe30();
 }
 export async function obtenerSuperheroePorId(id){
@@ -17,8 +17,8 @@ export async function buscarSuperheroesPorAtributo(atributo, valor){
 }
 
 //agregada para probar ahora
-export async function obtenerSuperheroesMayoresDe30YconFiltros() {
+/*export async function obtenerSuperheroesMayoresDe30YconFiltros() {
     const heroes = await superHeroRepository.obtenerTodos();
     return heroes.filter(hero => hero.edad > 30); 
-  }
+  }*/
 
