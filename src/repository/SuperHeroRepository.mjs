@@ -12,28 +12,31 @@ class SuperHeroRepository extends IRepository {
     }
 
     async buscarPorAtributo(atributo, valor) {
-        const query = {[atributo]: new RegExp(valor, 'i')};
-        return await SuperHero.find(query);
-    }
-
-    /*async obtenerMayoresDe30(){
-        try {
-          return await SuperHero.find({
-            edad: { $gt: 30 }, // Filtra por edad
-            planetaOrigen: 'Tierra', // También filtra por planeta de origen
-            $expr: { $gte: [{ $size: "$poderes" }, 2] } // Al menos 2 poderes
-          });
-        } catch (error) {
-          console.error('Error al obtener superhéroes mayores de 30:', error);
+        try{
+          if(atributo!='edad'){
+            const query = {[atributo]: new RegExp(valor, 'i')};
+            return await SuperHero.find(query);
+          }else{
+            const query = {[atributo]: valor};
+            return await SuperHero.find(query);
+          }
+        }catch(error){
+          console.log('Error al obtener heroes: ', error);
           throw error;
         }
-    }**/
-        async obtenerMayoresDe30(){
+   
+    }
+    
+    async obtenerMayoresDe30(){
           try {
             return await SuperHero.find({
               edad: { $gt: 30 }, // Filtra por edad
               planetaOrigen: 'Tierra', // También filtra por planeta de origen
-              poderes: { $size: 2} //{$gte: 2} } // esto da = a 2 Poderes. 
+              //poderes: { $size: 2} //{$gte: 2} } // esto da = a 2 Poderes. 
+              $and: [             
+                { poderes: { $exists: true, $type: "array" } }, // Verifica que "poderes" sea un arreglo
+                                   { $expr: { $gte: [{ $size: "$poderes" }, 2] } } // Condición de tamaño mínimo
+               ]
             });
           } catch (error) {
             console.error('Error al obtener superhéroes mayores de 30:', error);
